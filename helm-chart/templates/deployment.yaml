@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "helm-example.fullname" . }}
+  namespace: {{ .Values.namespace }}
   labels:
     {{- include "helm-example.labels" . | nindent 4 }}
 spec:
@@ -48,8 +49,8 @@ spec:
     {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+    {{- end }}
     {{- with .Values.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+    {{- end }}
