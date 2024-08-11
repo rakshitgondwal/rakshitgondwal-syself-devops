@@ -1,0 +1,50 @@
+replicaCount: 3
+
+image:
+  pullPolicy: IfNotPresent
+  repository: rakshitgondwal/helm-sample-app
+  tag: v1
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  name: rakshit-sample-sa
+
+podSecurityContext:
+  runAsUser: 1000
+  fsGroup: 2000
+
+securityContext:
+  runAsNonRoot: true
+  readOnlyRootFilesystem: true
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - host: chart-example.local
+      paths:
+        - /
+  tls: []
+
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 200m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
